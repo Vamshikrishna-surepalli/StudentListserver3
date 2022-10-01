@@ -1,0 +1,34 @@
+import { useState,useEffect } from "react";
+
+const StudentList = (props) => {
+    const [arr, setArray] = useState([]);   
+   useEffect(()=>{
+
+    fetch('http://localhost:8090/getStudent')
+    .then(response => {return response.json() })
+      .then(data => {setArray(data)})
+   
+    },[props.value])
+  return (
+    <div className='App'>
+        <table border="1">
+          <tr>
+            <th>Name</th>
+            <th>email</th>
+            <th>date</th>
+          </tr>
+          {arr?.map((a) => {
+            return (
+              <tr >
+                <td>{a.name}</td>
+                <td>{a.email}</td>
+                <td>{a.date}</td>
+              </tr>
+            );
+          })}
+        </table>
+    </div>
+  );
+}
+
+export default StudentList;
